@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Цитаты</title>
+</head>
+<body bgcolor="#d3d3d3">
+    <!-- Панель управления -->
+    <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#eaeaea">
+        <tr>
+
+            <td>
+                <form action="/" method="get" style="display:inline;">
+                    <input type="submit" value="Главная">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'add_quote' %}" method="get" style="display:inline;">
+                    <input type="submit" value="Добавить цитату">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'top_quotes' %}" method="get" style="display:inline;">
+                    <input type="submit" value="Топ цитат">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'dashboard' %}" method="get" style="display:inline;">
+                    <input type="submit" value="статистика">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <!-- Секция цитат -->
+    {% for quote in quotes %}
+        <table width="80%" border="1" cellpadding="5" cellspacing="0" align="center"  bgcolor="#eaeaea">
+            <tr>
+                <td>
+                    <p><b>Цитата:</b> {{ quote.text }}</p>
+                    <p><i>Источник:</i> {{ quote.source }}</p>
+                    <p>Просмотры: {{ quote.views }}</p>
+
+                    <!-- Кнопки лайков -->
+                    <form action="{% url 'toggle_like' quote.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="👍 {{ quote.likes }}">
+                    </form>
+
+                    <form action="{% url 'toggle_dislike' quote.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="👎 {{ quote.dislikes }}">
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <br>
+    {% empty %}
+        <p align="center">Цитат пока нет. Добавь свою!</p>
+    {% endfor %}
+</body>
+</html>

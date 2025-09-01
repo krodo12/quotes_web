@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить цитату</title>
+</head>
+<body bgcolor="#d3d3d3">
+    <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#eaeaea">
+        <tr>
+
+            <td>
+                <form action="/" method="get" style="display:inline;">
+                    <input type="submit" value="Главная">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'add_quote' %}" method="get" style="display:inline;">
+                    <input type="submit" value="Добавить цитату">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'top_quotes' %}" method="get" style="display:inline;">
+                    <input type="submit" value="Топ цитат">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'dashboard' %}" method="get" style="display:inline;">
+                    <input type="submit" value="статистика">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <h1>статистика</h1>
+    
+    <p>Всего цитат: {{ total_quotes }}</p>
+    <p>Всего лайков: {{ total_likes }}</p>
+    <p>Всего дизлайков: {{ total_dislikes }}</p>
+    <p>Всего просмотров: {{ total_views }}</p>
+    
+    <h2>Топ-5 цитат</h2>
+    <ul>
+    {% for quote in top_quotes %}
+        <li>"{{ quote.text }}" — 👍 {{ quote.likes }}</li>
+    {% endfor %}
+    </ul>
+    
+    <h2>Новые цитаты</h2>
+    <ul>
+    {% for quote in latest_quotes %}
+        <li>"{{ quote.text }}" ({{ quote.source }})</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

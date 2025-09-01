@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить цитату</title>
+</head>
+<body bgcolor="#d3d3d3">
+    <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#eaeaea">
+        <tr>
+            <td>
+                <form action="/" method="get" style="display:inline;">
+                    <input type="submit" value="Главная">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'add_quote' %}" method="get" style="display:inline;">
+                    <input type="submit" value="Добавить цитату">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'top_quotes' %}" method="get" style="display:inline;">
+                    <input type="submit" value="Топ цитат">
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'dashboard' %}" method="get" style="display:inline;">
+                    <input type="submit" value="статистика">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <h1>Добавить новую цитату</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            Текст цитаты:<br>
+            {{ form.text }}
+        </p>
+        <p>
+            Источник :<br>
+            {{ form.source }}
+        </p>
+        <p>
+            Частота появления :<br>
+            {{ form.weight }}
+            <br>
+            <small> реже                         чаще</small>
+        </p>
+        <button type="submit">Добавить</button>
+    </form>
+</body>
+</html>
